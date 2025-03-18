@@ -9,6 +9,8 @@ use App\Models\Vuelo;
 use DateTime;
 use Illuminate\Http\Request;
 
+use function PHPUnit\Framework\returnSelf;
+
 class ReservaController extends Controller
 {
     /**
@@ -16,7 +18,8 @@ class ReservaController extends Controller
      */
     public function index()
     {
-        //
+        $reservas = Reserva::where ('user_id', auth()->user()->id)->with('vuelo')->get();
+        return view('reservas.index',['reservas'=>$reservas]);
     }
 
     /**
