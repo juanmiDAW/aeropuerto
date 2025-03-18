@@ -18,7 +18,7 @@ class ReservaController extends Controller
      */
     public function index()
     {
-        $reservas = Reserva::where ('user_id', auth()->user()->id)->with('vuelo')->get();
+        $reservas = Reserva::where ('user_id', auth()->user()->id)->with(['vuelo', 'vuelo.aeropuertoOrigen', 'vuelo.aeropuertoDestino'])->get();
         return view('reservas.index',['reservas'=>$reservas]);
     }
 
