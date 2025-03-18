@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreReservaRequest;
 use App\Http\Requests\UpdateReservaRequest;
 use App\Models\Reserva;
+use App\Models\Vuelo;
+use DateTime;
+use Illuminate\Http\Request;
 
 class ReservaController extends Controller
 {
@@ -27,9 +30,24 @@ class ReservaController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreReservaRequest $request)
+    public function store(Request $request)
     {
-        //
+        $vuelo = Vuelo::Where('id',$request->vuelo_id)->first();
+        $reservas = Reserva::where('vuelo_id', $request->vuelo_id )->count();
+        if($reservas >= $vuelo->plazas){
+            return redirect()->route('vuelos.index')->with('info', 'No hay plazas disponibles');
+        }else{
+
+            $fecha = new DateTime();
+            // dd($fecha);
+            
+            $reserva = new Reserva();
+            $reserva->vuelo_id = $request->vuelo_id;
+            $reserva->fecha_compra = $fecha;
+            $reserva->user_id = auth()->user()->id;
+            $reserva->save();
+            return redirect()->route('vuelos.index')->with('info', 'Reserva realizada con exito');
+        }
     }
 
     /**
