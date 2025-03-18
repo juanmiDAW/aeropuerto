@@ -16,7 +16,7 @@ class Reserva extends Model
         'user_id'
     ];
 
-    public function vuelos(){
+    public function vuelo(){
         return $this->belongsTo(Vuelo::class);
     }
 
