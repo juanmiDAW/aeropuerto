@@ -34,26 +34,28 @@
                                             class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                             Llegada
                                         </th>
-                                        
+
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($reservas as $reserva)
                                         <tr>
                                             <td class="px-6 py-4">
-                                                {{ $reserva->vuelo->codigo }}
+                                                <a href="{{ route('reservas.show', $reserva) }}">
+                                                    {{ $reserva->vuelo->codigo }}
+                                                </a>
                                             </td>
                                             <td class="px-6 py-4">
-                                                {{$reserva->vuelo->aeropuertoOrigen->nombre}}
+                                                {{ $reserva->vuelo->aeropuertoOrigen->nombre }}
                                             </td>
                                             <td class="px-6 py-4">
-                                                {{$reserva->vuelo->aeropuertoDestino->nombre}}
+                                                {{ $reserva->vuelo->aeropuertoDestino->nombre }}
                                             </td>
                                             <td class="px-6 py-4">
-                                                {{$reserva->vuelo->salida}}
+                                                {{ $reserva->vuelo->salida }}
                                             </td>
                                             <td class="px-6 py-4">
-                                                {{$reserva->vuelo->llegada}}
+                                                {{ $reserva->vuelo->llegada }}
                                             </td>
                                         </tr>
                                         {{-- <td class="px-6 py-4">
