@@ -41,7 +41,7 @@
                                     @foreach ($reservas as $reserva)
                                         <tr>
                                             <td class="px-6 py-4">
-                                                <a href="{{ route('reservas.show', $reserva) }}">
+                                                <a class="text-blue-800" href="{{ route('reservas.show', $reserva) }}">
                                                     {{ $reserva->vuelo->codigo }}
                                                 </a>
                                             </td>
