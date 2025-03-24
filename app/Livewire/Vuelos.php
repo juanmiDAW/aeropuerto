@@ -12,6 +12,7 @@ class Vuelos extends Component
     public $resultado;
     public $asientos;
     public $ocupados;
+    public $plazasDisponibles;
 
 
     public function mount()
@@ -28,6 +29,10 @@ class Vuelos extends Component
         foreach($this->asientos as $asiento){
             $this->ocupados[] = $asiento->asiento;
         }
+
+        $asientosTotales = $this->asientos->count();
+        $this->plazasDisponibles = $this->resultado->plazas - $asientosTotales;
+
     }
 
     public function render()

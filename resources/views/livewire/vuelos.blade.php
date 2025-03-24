@@ -43,10 +43,10 @@
                 <td class="px-6 py-4 text-center">{{ $resultado->llegada }}</td>
                 <td class="px-6 py-4 text-center">{{ $resultado->plazas }}</td>
                 <td class="px-6 py-4 text-center">{{ $resultado->precio }}</td>
-                @php
+                {{-- @php
                     $totalReservados = $asientos->count();
                     $plazasDisponibles = $resultado->plazas - $totalReservados;
-                @endphp
+                @endphp --}}
                 <td class="px-6 py-4 text-center">{{ $plazasDisponibles }}</td>
 
                 {{-- @php
