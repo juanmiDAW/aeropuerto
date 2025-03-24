@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Livewire;
 
 use App\Models\Reserva;
@@ -18,24 +19,24 @@ class Vuelos extends Component
     public function mount()
     {
         $this->vuelos = Vuelo::with(['aeropuertoOrigen', 'aeropuertoDestino'])->get();
-        
-        
     }
-    
+
     public function updatedVueloSeleccionado($id)
     {
+        $this->ocupados = [];
+
         $this->resultado = Vuelo::where('id', $id)->with(['aeropuertoOrigen', 'aeropuertoDestino'])->first();
+
         $this->asientos = Reserva::where('vuelo_id', $this->resultado->id)->get(['asiento']);
-        foreach($this->asientos as $asiento){
+        foreach ($this->asientos as $asiento) {
             $this->ocupados[] = $asiento->asiento;
         }
-        if($this->ocupados == null){
+        if ($this->ocupados == null) {
             $this->ocupados = [];
         }
 
         $asientosTotales = $this->asientos->count();
         $this->plazasDisponibles = $this->resultado->plazas - $asientosTotales;
-
     }
 
     public function render()
