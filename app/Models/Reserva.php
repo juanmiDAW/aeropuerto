@@ -13,7 +13,8 @@ class Reserva extends Model
     protected $fillable = [
         'fecha_compra',
         'vuelos_id',
-        'user_id'
+        'user_id',
+        'asiento'
     ];
 
     public function vuelo(){

@@ -16,6 +16,7 @@ return new class extends Migration
             $table->timestamp('fecha_compra');
             $table->foreignId('vuelo_id')->constrained();
             $table->foreignId('user_id')->constrained();
+            $table->integer('asiento');
 
             $table->timestamps();
         });

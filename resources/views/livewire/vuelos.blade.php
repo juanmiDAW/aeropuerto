@@ -5,9 +5,9 @@
                 {{ session('info') }}
             </div>
         @else
-        <div class="alert alert-success bg-green-500">
-            {{ session('info') }}
-        </div>
+            <div class="alert alert-success bg-green-500">
+                {{ session('info') }}
+            </div>
         @endif
     @endif
 
@@ -24,30 +24,52 @@
     @if ($resultado)
         <table border="1" class="mt-4">
             <tr>
-                <th>Código</th>
-                <th>Origen</th>
-                <th>Destino</th>
-                <th>Salida</th>
-                <th>Llegada</th>
-                <th>Plazas</th>
-                <th>Precio</th>
+                <th scope="col" class="px-6 py-3">Código</th>
+                <th scope="col" class="px-6 py-3">Origen</th>
+                <th scope="col" class="px-6 py-3">Destino</th>
+                <th scope="col" class="px-6 py-3">Salida</th>
+                <th scope="col" class="px-6 py-3">Llegada</th>
+                <th scope="col" class="px-6 py-3">Plazas</th>
+                <th scope="col" class="px-6 py-3">Precio</th>
+                <th scope="col" class="px-6 py-3">Asientos disponibles</th>
+
             </tr>
             <tr>
-                <td>{{ $resultado->codigo }}</td>
-                <td>{{ $resultado->aeropuertoOrigen->nombre }}</td>
-                <td>{{ $resultado->aeropuertoDestino->nombre }}</td>
-                <td>{{ $resultado->salida }}</td>
-                <td>{{ $resultado->llegada }}</td>
-                <td>{{ $resultado->plazas }}</td>
-                <td>{{ $resultado->precio }}</td>
+                <td class="px-6 py-4">{{ $resultado->codigo }}</td>
+                <td class="px-6 py-4">{{ $resultado->aeropuertoOrigen->nombre }}</td>
+                <td class="px-6 py-4">{{ $resultado->aeropuertoDestino->nombre }}</td>
+                <td class="px-6 py-4">{{ $resultado->salida }}</td>
+                <td class="px-6 py-4">{{ $resultado->llegada }}</td>
+                <td class="px-6 py-4">{{ $resultado->plazas }}</td>
+                <td class="px-6 py-4">{{ $resultado->precio }}</td>
+                {{-- @php
+                dd($ocupados);
+                $ocupados= [];
+
+                foreach($asientos as $asiento){
+
+                    $ocupados[] = $asiento->asiento;
+                }
+                // dd($ocupados);
+                @endphp --}}
+                <td>
+                    <form action="{{ route('reservas.store') }} " method="POST">
+                        @csrf
+                        <input type="hidden" name="vuelo_id" value="{{ $resultado->id }}">
+                        {{-- <input type="hidden" name="asiento" value="{{ $asiento }}"> --}}
+                        <select name="asiento" id="asiento">
+                            @for ($i = 1; $i <= $vuelo->plazas; $i++)
+                                @if (!in_array($i, $ocupados))
+                                    <option value="{{ $i }}">{{ $i }}</option>
+                                @endif
+                            @endfor
+                        </select>
+                        <button type="submit"
+                            class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Reservar</button>
+                    </form>
+                </td>
             </tr>
         </table>
-        <form action="{{ route('reservas.store') }} " method="POST">
-            @csrf
-            <input type="hidden" name="vuelo_id" value="{{ $resultado->id }}">
-            <button type="submit"
-                class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Reservar</button>
-        </form>
     @else
         <p class="mt-4">Selecciona un vuelo para ver los detalles.</p>
     @endif

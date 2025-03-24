@@ -48,6 +48,7 @@ class ReservaController extends Controller
             $reserva->vuelo_id = $request->vuelo_id;
             $reserva->fecha_compra = $fecha;
             $reserva->user_id = auth()->user()->id;
+            $reserva->asiento = $request->asiento;
             $reserva->save();
             return redirect()->route('vuelos.index')->with('info', 'Reserva realizada con exito');
         }
