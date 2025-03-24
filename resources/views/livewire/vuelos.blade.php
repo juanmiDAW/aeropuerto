@@ -43,27 +43,13 @@
                 <td class="px-6 py-4 text-center">{{ $resultado->llegada }}</td>
                 <td class="px-6 py-4 text-center">{{ $resultado->plazas }}</td>
                 <td class="px-6 py-4 text-center">{{ $resultado->precio }}</td>
-                {{-- @php
-                    $totalReservados = $asientos->count();
-                    $plazasDisponibles = $resultado->plazas - $totalReservados;
-                @endphp --}}
+               
                 <td class="px-6 py-4 text-center">{{ $plazasDisponibles }}</td>
 
-                {{-- @php
-                dd($ocupados);
-                $ocupados= [];
-
-                foreach($asientos as $asiento){
-
-                    $ocupados[] = $asiento->asiento;
-                }
-                // dd($ocupados);
-                @endphp --}}
                 <td>
                     <form action="{{ route('reservas.store') }} " method="POST">
                         @csrf
                         <input type="hidden" name="vuelo_id" value="{{ $resultado->id }}">
-                        {{-- <input type="hidden" name="asiento" value="{{ $asiento }}"> --}}
                         <select name="asiento" id="asiento">
                             @for ($i = 1; $i <= $vuelo->plazas; $i++)
                                 @if (!in_array($i, $ocupados))

@@ -29,6 +29,9 @@ class Vuelos extends Component
         foreach($this->asientos as $asiento){
             $this->ocupados[] = $asiento->asiento;
         }
+        if($this->ocupados == null){
+            $this->ocupados = [];
+        }
 
         $asientosTotales = $this->asientos->count();
         $this->plazasDisponibles = $this->resultado->plazas - $asientosTotales;
