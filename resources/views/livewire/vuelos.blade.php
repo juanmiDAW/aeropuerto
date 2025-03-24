@@ -31,17 +31,24 @@
                 <th scope="col" class="px-6 py-3">Llegada</th>
                 <th scope="col" class="px-6 py-3">Plazas</th>
                 <th scope="col" class="px-6 py-3">Precio</th>
+                <th scope="col" class="px-6 py-3">Numero de plazas disponibles</th>
                 <th scope="col" class="px-6 py-3">Asientos disponibles</th>
 
             </tr>
             <tr>
-                <td class="px-6 py-4">{{ $resultado->codigo }}</td>
-                <td class="px-6 py-4">{{ $resultado->aeropuertoOrigen->nombre }}</td>
-                <td class="px-6 py-4">{{ $resultado->aeropuertoDestino->nombre }}</td>
-                <td class="px-6 py-4">{{ $resultado->salida }}</td>
-                <td class="px-6 py-4">{{ $resultado->llegada }}</td>
-                <td class="px-6 py-4">{{ $resultado->plazas }}</td>
-                <td class="px-6 py-4">{{ $resultado->precio }}</td>
+                <td class="px-6 py-4 text-center">{{ $resultado->codigo }}</td>
+                <td class="px-6 py-4 text-center">{{ $resultado->aeropuertoOrigen->nombre }}</td>
+                <td class="px-6 py-4 text-center">{{ $resultado->aeropuertoDestino->nombre }}</td>
+                <td class="px-6 py-4 text-center">{{ $resultado->salida }}</td>
+                <td class="px-6 py-4 text-center">{{ $resultado->llegada }}</td>
+                <td class="px-6 py-4 text-center">{{ $resultado->plazas }}</td>
+                <td class="px-6 py-4 text-center">{{ $resultado->precio }}</td>
+                @php
+                    $totalReservados = $asientos->count();
+                    $plazasDisponibles = $resultado->plazas - $totalReservados;
+                @endphp
+                <td class="px-6 py-4 text-center">{{ $plazasDisponibles }}</td>
+
                 {{-- @php
                 dd($ocupados);
                 $ocupados= [];
